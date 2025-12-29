@@ -172,12 +172,12 @@ Not authorized to perform sts:AssumeRoleWithWebIdentity
 **원인:**
 - IAM Role Trust Policy의 OIDC Condition 키가 잘못 설정됨
 - 스크립트에서 OIDC ID만 추출하여 사용 (`C9E7CC...`)
-- 올바른 형식: 전체 OIDC Provider URL (`oidc.eks.ap-northeast-2.amazonaws.com/id/C9E7CC...`)
+- 올바른 형식: 전체 OIDC Provider URL (`oidc.eks.ap-northeast-3.amazonaws.com/id/C9E7CC...`)
 
 **해결:**
 ```bash
 # Trust Policy 수정
-OIDC_PROVIDER="oidc.eks.ap-northeast-2.amazonaws.com/id/C9E7CC484A81959E22B66423AA6EBC28"
+OIDC_PROVIDER="oidc.eks.ap-northeast-3.amazonaws.com/id/C9E7CC484A81959E22B66423AA6EBC28"
 
 # 잘못된 Condition:
 "C9E7CC...:sub": "system:serviceaccount:kube-system:aws-load-balancer-controller"
@@ -419,7 +419,7 @@ GET https://xxx.cloudfront.net/_next/image?url=http%3A%2F%2Flocalhost%3A8000%2Ft
 3. **Backend ConfigMap 설정**
    ```yaml
    AWS_STORAGE_BUCKET_NAME: "kyeol-dev-s3-media"
-   AWS_S3_REGION_NAME: "ap-northeast-2"
+   AWS_S3_REGION_NAME: "ap-northeast-3"
    AWS_S3_CUSTOM_DOMAIN: "YOUR_CLOUDFRONT_DOMAIN"
    DEFAULT_FILE_STORAGE: "saleor.core.storages.S3MediaStorage"
    ```
@@ -1101,8 +1101,8 @@ cd ~/workspace/saleor_storefront/storefront
 NEW_DOMAIN=$(cd ~/workspace/kyeol-infra-new/terraform && terraform output -raw cloudfront_domain_name)
 docker build --no-cache \
   --build-arg NEXT_PUBLIC_SALEOR_API_URL="https://$NEW_DOMAIN/graphql/" \
-  -t 827913617839.dkr.ecr.ap-northeast-2.amazonaws.com/kyeol-dev-storefront:latest .
-docker push 827913617839.dkr.ecr.ap-northeast-2.amazonaws.com/kyeol-dev-storefront:latest
+  -t 827913617839.dkr.ecr.ap-northeast-3.amazonaws.com/kyeol-dev-storefront:latest .
+docker push 827913617839.dkr.ecr.ap-northeast-3.amazonaws.com/kyeol-dev-storefront:latest
 kubectl rollout restart deployment storefront -n kyeol-dev
 ```
 

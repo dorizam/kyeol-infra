@@ -11,7 +11,7 @@ data:
   ALLOWED_HOSTS: "*"
   
   # 중요: ALLOWED_CLIENT_HOSTS 필수 (DEBUG=false 시)
-  ALLOWED_CLIENT_HOSTS: "dev.selffish234.cloud"
+  ALLOWED_CLIENT_HOSTS: "dev.yesol.shop"
   
   # SSL 설정 - false! (트러블슈팅 6-3 참고)
   ENABLE_SSL: "false"
@@ -28,17 +28,17 @@ data:
   ALLOW_LOGIN_WITHOUT_CONFIRMATION: "true"
   
   # CSRF/CORS - CloudFront 도메인
-  CSRF_TRUSTED_ORIGINS: "https://dev.selffish234.cloud"
+  CSRF_TRUSTED_ORIGINS: "https://dev.yesol.shop"
   
   # PUBLIC_URL - 썸네일 URL 생성에 필수! (트러블슈팅 25, 26)
-  PUBLIC_URL: "https://dev.selffish234.cloud"
+  PUBLIC_URL: "https://dev.yesol.shop"
   
   # S3 미디어 스토리지 설정 (트러블슈팅 14, 23, 24)
-  AWS_MEDIA_BUCKET_NAME: "saleor-joon-dev-s3-media"
-  AWS_MEDIA_CUSTOM_DOMAIN: "dev.selffish234.cloud"
-  AWS_STORAGE_BUCKET_NAME: "saleor-joon-dev-s3-media"
-  AWS_S3_REGION_NAME: "ap-northeast-2"
-  AWS_S3_CUSTOM_DOMAIN: "dev.selffish234.cloud"
+  AWS_MEDIA_BUCKET_NAME: "sol-dev-s3-media"
+  AWS_MEDIA_CUSTOM_DOMAIN: "dev.yesol.shop"
+  AWS_STORAGE_BUCKET_NAME: "sol-dev-s3-media"
+  AWS_S3_REGION_NAME: "ap-northeast-3"
+  AWS_S3_CUSTOM_DOMAIN: "dev.yesol.shop"
   DEFAULT_FILE_STORAGE: "saleor.core.storages.S3MediaStorage"
 ---
 # Storefront ConfigMap

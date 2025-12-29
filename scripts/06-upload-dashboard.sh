@@ -15,7 +15,7 @@ fi
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 # 소스코드 경로 (스크립트 위치 기준 상대 경로)
-SOURCE_DIR="$SCRIPT_DIR/../../source/saleor-dashboard"
+SOURCE_DIR="$SCRIPT_DIR/../../saleor-dashboard/saleor-dashboard"
 
 echo "=== Dashboard S3 업로드 ==="
 

@@ -1,16 +1,16 @@
 #!/bin/bash
 # 02-build-and-push.sh
 # Docker 이미지 빌드 및 ECR Push
-# 소스코드: ../source (레포지토리 기준)
+# 소스코드: ../.. (kyeol-infra와 형제 디렉토리)
 
 set -e
 
-AWS_REGION="ap-northeast-2"
+AWS_REGION="ap-northeast-3"
 AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 TERRAFORM_DIR="$SCRIPT_DIR/../terraform"
 # 소스코드 경로 (스크립트 위치 기준 상대 경로)
-SOURCE_DIR="$SCRIPT_DIR/../../source"
+SOURCE_DIR="$SCRIPT_DIR/../.."
 
 echo "=== Docker 이미지 빌드 및 ECR Push ==="
 echo "AWS Account: $AWS_ACCOUNT_ID"
@@ -31,7 +31,7 @@ echo "Storefront ECR: $STOREFRONT_ECR"
 
 # Backend 빌드
 echo "2. Backend 이미지 빌드..."
-cd "$SOURCE_DIR/saleor"
+cd "$SOURCE_DIR/saleor-backend/saleor"
 
 # Dockerfile이 없으면 생성
 if [ ! -f "Dockerfile" ]; then
@@ -70,13 +70,13 @@ echo "   - Backend 이미지 Push 완료"
 
 # Storefront 빌드
 echo "3. Storefront 이미지 빌드..."
-cd "$SOURCE_DIR/storefront"
+cd "$SOURCE_DIR/saleor-storefront/storefront"
 
 # 중요: Backend의 schema.graphql을 Storefront로 복사
 # GraphQL codegen이 원격 서버 대신 로컬 스키마 파일을 사용하도록 함
 # 트러블슈팅: Backend가 아직 배포 안됐으면 원격 URL에서 503 에러 발생
 echo "   - Backend 스키마 복사 중..."
-cp "$SOURCE_DIR/saleor/saleor/graphql/schema.graphql" ./schema.graphql
+cp "$SOURCE_DIR/saleor-backend/saleor/saleor/graphql/schema.graphql" ./schema.graphql
 
 # Terraform output에서 도메인 가져오기 (Custom Domain 우선)
 cd "$TERRAFORM_DIR"

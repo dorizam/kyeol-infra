@@ -7,7 +7,7 @@ metadata:
   namespace: kyeol-dev
   annotations:
     # 04-deploy-apps.sh에서 자동으로 설정됨
-    eks.amazonaws.com/role-arn: "arn:aws:iam::827913617839:role/saleor-joon-dev-role-backend-s3"
+    eks.amazonaws.com/role-arn: "arn:aws:iam::827913617839:role/sol-dev-role-backend-s3"
 ---
 # Backend Deployment
 apiVersion: apps/v1
@@ -30,7 +30,7 @@ spec:
       serviceAccountName: backend-sa
       containers:
       - name: backend
-        image: 827913617839.dkr.ecr.ap-northeast-2.amazonaws.com/saleor-joon-dev-backend:ff863ace3c3614f2ff376108aa085c3a2d0fec24
+        image: 827913617839.dkr.ecr.ap-northeast-3.amazonaws.com/sol-dev-backend:latest
         ports:
         - containerPort: 8000
         envFrom:

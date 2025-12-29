@@ -10,7 +10,7 @@ spec:
   serviceRef:
     name: backend-service
     port: 8000
-  targetGroupARN: arn:aws:elasticloadbalancing:ap-northeast-2:827913617839:targetgroup/saleor-joon-dev-tg-backend/4e3e8755c61c85a7
+  targetGroupARN: arn:aws:elasticloadbalancing:ap-northeast-3:827913617839:targetgroup/sol-dev-tg-backend/20e12e37dfe03b25
   targetType: ip
 ---
 apiVersion: elbv2.k8s.aws/v1beta1
@@ -22,5 +22,5 @@ spec:
   serviceRef:
     name: storefront-service
     port: 3000
-  targetGroupARN: arn:aws:elasticloadbalancing:ap-northeast-2:827913617839:targetgroup/saleor-joon-dev-tg-storefront/4fde0db6658f64c6
+  targetGroupARN: arn:aws:elasticloadbalancing:ap-northeast-3:827913617839:targetgroup/sol-dev-tg-storefront/dc5b190f6f14dac8
   targetType: ip

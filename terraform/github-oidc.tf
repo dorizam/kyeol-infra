@@ -23,8 +23,13 @@ resource "aws_iam_role" "github_actions" {
           "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
         }
         StringLike = {
-          # selffish234/dev-saleor 리포지토리에서만 사용 가능
-          "token.actions.githubusercontent.com:sub" = "repo:selffish234/dev-saleor:*"
+          # 레포지토리 목록 (Monorepo 및 각 모듈별 리포지토리 허용)
+          "token.actions.githubusercontent.com:sub" = [
+            "repo:dorizam/kyeol-infra:*",
+            "repo:dorizam/saleor-backend:*",
+            "repo:dorizam/saleor-dashboard:*",
+            "repo:dorizam/saleor-storefront:*"
+          ]
         }
       }
     }]

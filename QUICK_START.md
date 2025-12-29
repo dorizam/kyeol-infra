@@ -90,7 +90,7 @@ create_custom_domain           = true
 domain_name                    = "dev.your-domain.com"  # 예: "dev.joon.shop"
 route53_zone_id                = "YOUR_ROUTE53_ZONE_ID"
 acm_certificate_arn_cloudfront = "arn:aws:acm:us-east-1:YOUR_ACCOUNT:certificate/xxx"
-acm_certificate_arn_alb        = "arn:aws:acm:ap-northeast-2:YOUR_ACCOUNT:certificate/xxx"
+acm_certificate_arn_alb        = "arn:aws:acm:ap-northeast-3:YOUR_ACCOUNT:certificate/xxx"
 ```
 
 > **💡 도메인 없이 테스트하려면:**
@@ -104,7 +104,7 @@ acm_certificate_arn_alb        = "arn:aws:acm:ap-northeast-2:YOUR_ACCOUNT:certif
 | 1 | Route53 Hosted Zone 생성 | AWS Console → Route53 → Create Hosted Zone |
 | 2 | 네임서버 설정 | 도메인 등록 업체에서 NS 레코드를 Route53 값으로 변경 |
 | 3 | ACM 인증서 생성 (us-east-1) | CloudFront용 - `*.your-domain.com` |
-| 4 | ACM 인증서 생성 (ap-northeast-2) | ALB용 - `*.your-domain.com` |
+| 4 | ACM 인증서 생성 (ap-northeast-3) | ALB용 - `*.your-domain.com` |
 | 5 | DNS 검증 완료 | ACM에서 제공하는 CNAME 레코드 추가 |
 
 ### 3단계: Terraform 인프라 배포
@@ -137,7 +137,7 @@ terraform apply
 $(terraform output -raw kubeconfig_command)
 
 # 또는 직접 실행:
-# aws eks update-kubeconfig --name $(terraform output -raw eks_cluster_name) --region ap-northeast-2
+# aws eks update-kubeconfig --name $(terraform output -raw eks_cluster_name) --region ap-northeast-3
 
 # 연결 확인
 kubectl get nodes

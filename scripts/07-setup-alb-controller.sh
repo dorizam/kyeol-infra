@@ -13,7 +13,7 @@ OIDC_PROVIDER_ARN=$(terraform output -raw eks_oidc_provider_arn)
 VPC_ID=$(terraform output -raw vpc_id)
 cd - > /dev/null
 
-AWS_REGION="ap-northeast-2"
+AWS_REGION="ap-northeast-3"
 AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 
 echo "Cluster: $CLUSTER_NAME"
@@ -40,7 +40,7 @@ ROLE_NAME="aws-load-balancer-controller-${CLUSTER_NAME}"
 
 # 중요: OIDC Provider URL 전체를 Condition 키로 사용해야 함
 # 잘못된 예: C9E7CC484A81959E22B66423AA6EBC28:sub
-# 올바른 예: oidc.eks.ap-northeast-2.amazonaws.com/id/C9E7CC484A81959E22B66423AA6EBC28:sub
+# 올바른 예: oidc.eks.ap-northeast-3.amazonaws.com/id/C9E7CC484A81959E22B66423AA6EBC28:sub
 OIDC_PROVIDER=$(echo $OIDC_PROVIDER_ARN | sed 's/arn:aws:iam::[0-9]*:oidc-provider\///')
 
 # Trust Policy

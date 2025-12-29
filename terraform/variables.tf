@@ -6,7 +6,7 @@
 variable "aws_region" {
   description = "AWS Region"
   type        = string
-  default     = "ap-northeast-2"
+  default     = "ap-northeast-3"
 }
 
 variable "environment" {
@@ -152,7 +152,7 @@ variable "acm_certificate_arn_cloudfront" {
 }
 
 variable "acm_certificate_arn_alb" {
-  description = "ACM Certificate ARN for ALB (ap-northeast-2)"
+  description = "ACM Certificate ARN for ALB (ap-northeast-3)"
   type        = string
   default     = ""
 }

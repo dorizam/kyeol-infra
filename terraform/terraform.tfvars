@@ -3,16 +3,16 @@
 # cp terraform.tfvars.example terraform.tfvars
 
 # 프로젝트 설정 (필수)
-project_name = "your-project"   # 예: "saleor-joon", "ecommerce-dev"
+project_name = "sol"   # 예: "saleor-joon", "ecommerce-dev"
 environment  = "dev"            # 예: "dev", "staging", "prod"
 
 # 커스텀 도메인 설정 (선택)
 # 도메인이 없으면 create_custom_domain = false로 설정하세요
-create_custom_domain           = false
-domain_name                    = "dev.your-domain.com"
-route53_zone_id                = "YOUR_ROUTE53_HOSTED_ZONE_ID"
-acm_certificate_arn_cloudfront = "arn:aws:acm:us-east-1:YOUR_ACCOUNT_ID:certificate/xxx"
-acm_certificate_arn_alb        = "arn:aws:acm:ap-northeast-3:YOUR_ACCOUNT_ID:certificate/xxx"
+create_custom_domain           = true
+domain_name                    = "dev.yesol.shop"
+route53_zone_id                = "Z082690736USFUQK5PXCG"
+acm_certificate_arn_cloudfront = "arn:aws:acm:us-east-1:827913617839:certificate/dc5536d8-286b-40d5-95f2-17308352636a"
+acm_certificate_arn_alb        = "arn:aws:acm:ap-northeast-3:827913617839:certificate/0bfb768a-82ce-4f3d-af6f-4210928be609"
 
 # 도메인 설정 방법:
 # 1. Route53에서 Hosted Zone 생성
