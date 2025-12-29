@@ -1,0 +1,89 @@
+# Database Migration Job
+# 주의: 스크립트 타임아웃보다 마이그레이션 시간이 길 수 있음 (트러블슈팅 3-4)
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-migration
+  namespace: kyeol-dev
+spec:
+  ttlSecondsAfterFinished: 600
+  backoffLimit: 3
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: migrate
+        image: 827913617839.dkr.ecr.ap-northeast-2.amazonaws.com/saleor-joon-dev-backend:latest
+        command: ["python", "manage.py", "migrate", "--noinput"]
+        envFrom:
+        - configMapRef:
+            name: backend-config
+        - secretRef:
+            name: backend-secrets
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: backend-secrets
+              key: DATABASE_URL
+        - name: SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: backend-secrets
+              key: SECRET_KEY
+        - name: RSA_PRIVATE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: backend-secrets
+              key: RSA_PRIVATE_KEY
+---
+# Create Superuser Job
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: create-superuser
+  namespace: kyeol-dev
+spec:
+  ttlSecondsAfterFinished: 600
+  backoffLimit: 1
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: create-superuser
+        image: 827913617839.dkr.ecr.ap-northeast-2.amazonaws.com/saleor-joon-dev-backend:latest
+        command: 
+        - python
+        - manage.py
+        - shell
+        - -c
+        - |
+          from django.contrib.auth import get_user_model
+          User = get_user_model()
+          if not User.objects.filter(email='admin@kyeol.com').exists():
+              user = User.objects.create_superuser('admin@kyeol.com', 'admin123!')
+              print('Superuser created')
+          else:
+              print('Superuser already exists')
+        envFrom:
+        - configMapRef:
+            name: backend-config
+        - secretRef:
+            name: backend-secrets
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: backend-secrets
+              key: DATABASE_URL
+        - name: SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: backend-secrets
+              key: SECRET_KEY
+        - name: RSA_PRIVATE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: backend-secrets
+              key: RSA_PRIVATE_KEY
+

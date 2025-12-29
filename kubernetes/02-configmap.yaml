@@ -1,0 +1,58 @@
+# Backend ConfigMap
+# 중요: ENABLE_SSL=false (ALB 뒤에서는 불필요, 무한 루프 방지)
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+  namespace: kyeol-dev
+data:
+  # Django 설정
+  DEBUG: "false"
+  ALLOWED_HOSTS: "*"
+  
+  # 중요: ALLOWED_CLIENT_HOSTS 필수 (DEBUG=false 시)
+  ALLOWED_CLIENT_HOSTS: "dev.selffish234.cloud"
+  
+  # SSL 설정 - false! (트러블슈팅 6-3 참고)
+  ENABLE_SSL: "false"
+  
+  # 이메일 설정 (Dummy - 실제 메일 발송 안함)
+  EMAIL_BACKEND: "django.core.mail.backends.console.EmailBackend"
+  
+  # 데이터베이스 (DATABASE_URL은 Secret에서)
+  DB_ENGINE: "django.db.backends.postgresql"
+  
+  # 기타 설정
+  DEFAULT_CHANNEL_SLUG: "default-channel"
+  ENABLE_ACCOUNT_CONFIRMATION_BY_EMAIL: "false"
+  ALLOW_LOGIN_WITHOUT_CONFIRMATION: "true"
+  
+  # CSRF/CORS - CloudFront 도메인
+  CSRF_TRUSTED_ORIGINS: "https://dev.selffish234.cloud"
+  
+  # PUBLIC_URL - 썸네일 URL 생성에 필수! (트러블슈팅 25, 26)
+  PUBLIC_URL: "https://dev.selffish234.cloud"
+  
+  # S3 미디어 스토리지 설정 (트러블슈팅 14, 23, 24)
+  AWS_MEDIA_BUCKET_NAME: "saleor-joon-dev-s3-media"
+  AWS_MEDIA_CUSTOM_DOMAIN: "dev.selffish234.cloud"
+  AWS_STORAGE_BUCKET_NAME: "saleor-joon-dev-s3-media"
+  AWS_S3_REGION_NAME: "ap-northeast-2"
+  AWS_S3_CUSTOM_DOMAIN: "dev.selffish234.cloud"
+  DEFAULT_FILE_STORAGE: "saleor.core.storages.S3MediaStorage"
+---
+# Storefront ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: storefront-config
+  namespace: kyeol-dev
+data:
+  NODE_ENV: "production"
+  
+  # Auth 설정
+  AUTH_TRUST_HOST: "true"
+  
+  # API URL은 배포 후 CloudFront 도메인으로 설정
+  # NEXT_PUBLIC_SALEOR_API_URL: "https://YOUR_CLOUDFRONT_DOMAIN/graphql/"
+  # NEXTAUTH_URL: "https://YOUR_CLOUDFRONT_DOMAIN"

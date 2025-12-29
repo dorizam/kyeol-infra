@@ -1,0 +1,10 @@
+cat <<EOF > .gitignore
+**/.terraform/*
+.terraform/
+terraform/.terraform/
+*.tfstate
+*.tfstate.*
+*.pem
+*.zip
+*.deb
+EOF

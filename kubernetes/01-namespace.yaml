@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kyeol-dev
+  labels:
+    app.kubernetes.io/name: kyeol
+    app.kubernetes.io/environment: dev

@@ -1,0 +1,23 @@
+# Terraform Variables Example
+# 이 파일을 terraform.tfvars로 복사하고 자신의 환경에 맞게 수정하세요.
+# cp terraform.tfvars.example terraform.tfvars
+
+# 프로젝트 설정 (필수)
+project_name = "your-project"   # 예: "saleor-joon", "ecommerce-dev"
+environment  = "dev"            # 예: "dev", "staging", "prod"
+
+# 커스텀 도메인 설정 (선택)
+# 도메인이 없으면 create_custom_domain = false로 설정하세요
+create_custom_domain           = false
+domain_name                    = "dev.your-domain.com"
+route53_zone_id                = "YOUR_ROUTE53_HOSTED_ZONE_ID"
+acm_certificate_arn_cloudfront = "arn:aws:acm:us-east-1:YOUR_ACCOUNT_ID:certificate/xxx"
+acm_certificate_arn_alb        = "arn:aws:acm:ap-northeast-2:YOUR_ACCOUNT_ID:certificate/xxx"
+
+# 도메인 설정 방법:
+# 1. Route53에서 Hosted Zone 생성
+# 2. 도메인 등록 업체에서 NS 레코드를 Route53 값으로 변경
+# 3. ACM에서 인증서 생성:
+#    - CloudFront용: us-east-1 리전에서 생성
+#    - ALB용: ap-northeast-2 리전에서 생성
+# 4. DNS 검증 완료 후 인증서 ARN을 위에 입력
